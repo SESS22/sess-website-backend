@@ -11,5 +11,10 @@
             "src": "/(.*)",
             "dest": "index.js"
         }
+    ],
+
+    "rewrites": [
+        {"source": "/", "destination": "https://senecaengsoc.vercel.app/"},
+        {"source": "/:match*", "destination": "https://senecaengsoc.vercel.app/:match*"}
     ]
 }
