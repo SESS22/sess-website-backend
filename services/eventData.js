@@ -77,7 +77,7 @@ export const getLatestUpcomingEvent = async () => {
         const getEventQuery = query(colRef, where("startTimestamp", ">=",  currentFirebaseTimestamp), orderBy("startTimestamp"),limit(1));
         const documentSnapshot = await getDocs(getEventQuery);
         const data = documentSnapshot.docs.map(doc => doc.data());
-         
+        console.log(data)
         return data;
     } catch (error) {
         console.log("eventData: getLatestUpcomingEvent(): ", error)

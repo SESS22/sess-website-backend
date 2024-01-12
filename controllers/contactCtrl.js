@@ -13,7 +13,7 @@ export const fetchContactLinks = async (req, res) => {
    }
 };
 
-const mailgunEmailSender = (message) => {
+const mailgunEmailSender = async (message) => {
     const {senderName, senderEmail, content} = message;
     const subject = `Feedback from ${senderName}`;
 
@@ -23,27 +23,30 @@ const mailgunEmailSender = (message) => {
         subject: `${subject}`,
         text: `${content}`
     };
-      
+
     const client = getMailgunApi();
-    client.messages.create(DOMAIN, messageData)
-    .then((res) => {
-        console.log(res);
-        return true;
-    })
-    .catch((err) => {
-        console.error("contactCtrl: mailgunEmailSender(): ", err);
-        return false;
-    });
+    const createMessage = await client.messages.create(DOMAIN, messageData);
+    console.log(createMessage.status)
+    return createMessage.status === 200
 }
 
-export const sendFeedback =  (req, res) => {
+export const sendFeedback = async (req, res) => {
+    console.log()
+    console.log(req.body)
     try {
-        const request = mailgunEmailSender({
+        
+        const request = await mailgunEmailSender({
             senderName: req.body.senderName,
             senderEmail: req.body.senderEmail,
             content: req.body.content
-        })
-        res.send(request); // D: returns a boolean
+        });
+
+        console.log(request)
+  
+        request === true?
+            res.status(200).send("email-sent")
+        : res.status(400).send("error-sending-email")
+        
     } catch (error) {
         console.error("contactCtrl: sendFeedback(): ", error);
         res.status(500).send("Internal Server Error");
