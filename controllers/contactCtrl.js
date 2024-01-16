@@ -43,13 +43,14 @@ export const sendFeedback = async (req, res) => {
 
         console.log(request)
   
-        request === true?
-            res.status(200).send("email-sent")
-        : res.status(400).send("error-sending-email")
+        if (request === true)
+            return res.status(200).send("email-sent")
+        else
+            return res.status(400).send("error-sending-email")
         
     } catch (error) {
         console.error("contactCtrl: sendFeedback(): ", error);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).send("Internal Server Error");
     }
     
 };

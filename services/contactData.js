@@ -2,7 +2,7 @@ import {collection, getDocs} from "firebase/firestore"
 import {db} from "../utils/dbConfig.js"
 import dotenv from "dotenv";
 dotenv.config();
-const API_KEY = process.env.MAILGUN_API_KEY;
+const API_KEY = process.env.MAILGUN_SENDING_KEY;
 
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
