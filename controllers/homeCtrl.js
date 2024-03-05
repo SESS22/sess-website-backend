@@ -21,3 +21,5 @@ export const fetchLatestUpcomingEvent = async (req, res) => {
         console.error("homeCtrl: fetchLatestUpcomingEvent(): ", error);
     }
 }
+
+
